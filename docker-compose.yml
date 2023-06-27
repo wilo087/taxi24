@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  taxi24.postgres:
+    container_name: taxi24_postgres
+    networks:
+      - taxi24_net
+    image: postgres:14.1-alpine3.14
+    # volumes:
+    #   - ./_cache/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_USER: postgres
+      POSTGRES_DB: 'taxi24'
+      PGDATA: '/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
+
+  # taxi24.service:
+  #   container_name: taxi24_service
+  #   networks:
+  #     - jobsity_taxi24_net
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/service/Dockerfile.dev
+  #   image: jobsity_taxi24_service
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules/
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - taxi24.postgres
+  #     - taxi24.api
+
+  # taxi24.api:
+  #   container_name: taxi24_api
+  #   networks:
+  #     - jobsity_taxi24_net
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/api/Dockerfile.dev
+  #   image: jobsity_taxi24_api
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules/
+
+networks:
+  taxi24_net:
+    name: taxi24_net
