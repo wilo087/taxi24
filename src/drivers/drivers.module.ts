@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { DriversService } from './drivers.service';
-import { DriversController } from './drivers.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { Module } from '@nestjs/common'
+import { DriversService } from './services/drivers.service'
+import { DriversController } from './controllers/drivers.controller'
+import { PrismaModule } from 'src/prisma/prisma.module'
 
 @Module({
   providers: [DriversService],
@@ -9,4 +9,5 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   exports: [DriversService],
   imports: [PrismaModule],
 })
-export class DriversModule {}
+
+export class DriversModule { }
