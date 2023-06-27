@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Brand {
-  id      Int       @id @default(autoincrement())
-  name    String
-  Vehicle Vehicle[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  logo     String
+  vehicles Vehicle[]
 
   @@map("brands")
 }
@@ -21,30 +22,29 @@ model Brand {
 model Company {
   id        Int       @id @default(autoincrement())
   name      String
-  RNC       Int
+  rnc       Int       @unique
   status    String
-  address   String?
+  address   String
   drivers   Driver[]
-  vehicles  Vehicle[]
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
+  vehicles  Vehicle[]
 
   @@map("companies")
 }
 
 model Passenger {
-  id           Int     @id @default(autoincrement())
-  firstName    String  @map("first_name")
-  lastName     String  @map("last_name")
+  id           Int           @id @default(autoincrement())
+  firstName    String        @map("first_name")
+  lastName     String        @map("last_name")
   email        String
-  phone        String?
+  phone        String
   document     String
-  documentType String  @map("document_type")
-  Trips        Trip[]
+  documentType DocumentTypes @map("document_type")
+  trips        Trip[]
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  deletedAt DateTime? @updatedAt @map("deleted_at")
 
   @@map("passengers")
 }
@@ -59,33 +59,32 @@ model Driver {
   document     String
   documentType String       @map("document_type")
   picture      String?
-  current_lat  Float?
-  current_log  Float?
+  currentLat   Float?       @map("current_lat")
+  currentLon   Float?       @map("current_log")
   status       DriverStatus
-
-  company Company   @relation(fields: [companyId], references: [id])
-  trips   Trip[]
-  Vehicle Vehicle[]
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+
+  company   Company  @relation(fields: [companyId], references: [id])
+  trips     Trip[]
+  vehicle   Vehicle?
+  vehicleId Int?     @unique @map("vehicle_id")
 
   @@map("drivers")
 }
 
 model Trip {
-  id             Int         @id @default(autoincrement())
-  driverId       Int         @map("driver_id")
-  passenger_id   Int
-  status         TripsStatus
-  from_latitude  Float
-  from_longitude Float
-  to_latitude    Float
-  to_longitude   Float
-  createdAt      DateTime    @default(now()) @map("created_at")
-  started_at     DateTime?   @map("started_at")
-  ended_at       DateTime?   @map("ended_at")
+  id            Int         @id @default(autoincrement())
+  driverId      Int         @map("driver_id")
+  status        TripsStatus
+  fromLatitude  Float       @map("from_latitude")
+  fromLongitude Float       @map("from_longitude")
+  toLatitude    Float       @map("to_latitude")
+  toLongitude   Float       @map("to_longitude")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  startedAt     DateTime?   @map("started_at")
+  endedAt       DateTime?   @map("ended_at")
 
   Invoice     Invoice?
   Passenger   Passenger @relation(fields: [passengerId], references: [id])
@@ -98,30 +97,42 @@ model Trip {
 model Vehicle {
   id        Int    @id @default(autoincrement())
   companyId Int    @map("company_id")
-  driverId  Int    @map("driver_id")
+  driverId  Int?   @unique @map("driver_id")
   color     String
   brandId   Int    @map("brand_id")
-  vin       String
+  vin       String @unique
   year      Int
 
-  company Company? @relation(fields: [companyId], references: [id])
-  driver  Driver   @relation(fields: [driverId], references: [id])
-  brand   Brand    @relation(fields: [brandId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+  brand   Brand   @relation(fields: [brandId], references: [id])
+  driver  Driver? @relation(fields: [driverId], references: [id])
 
   @@map("vehicles")
 }
 
 model Invoice {
-  id             Int      @id @default(autoincrement())
-  trip_id        Int      @unique
-  amount         Float?
-  status         String?
-  payment_method String?
-  createdAt      DateTime @default(now()) @map("created_at")
+  id            Int           @id @default(autoincrement())
+  tripId        Int           @unique @map("trip_id")
+  taxes         Float
+  amount        Float
+  status        String
+  paymentMethod PaymentMethod @map("payment_method")
+  createdAt     DateTime      @default(now()) @map("created_at")
 
-  trip Trip @relation(fields: [trip_id], references: [id])
+  trip Trip @relation(fields: [tripId], references: [id])
 
   @@map("invoices")
+}
+
+enum InvoiceStatus {
+  OPEN
+  CANCELLED
+  PAID
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
 }
 
 enum TripsStatus {
@@ -136,4 +147,10 @@ enum DriverStatus {
   INACTIVE
   ONLINE
   BUSY
+}
+
+enum DocumentTypes {
+  C
+  P
+  L
 }
