@@ -467,7 +467,7 @@ async function main() {
 
 
   // companies
-  const company1 = await prisma.company.createMany({
+  await prisma.company.createMany({
     data: [
       {
         name: "Company 1",

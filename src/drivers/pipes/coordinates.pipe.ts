@@ -16,4 +16,3 @@ export class CoordinatesValidationPipe implements PipeTransform {
     return coordinates;
   }
 }
-

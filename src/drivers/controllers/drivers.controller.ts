@@ -15,8 +15,6 @@ export class DriversController {
 
   @Get('nearby')
   async findNearby(@Query(new CoordinatesValidationPipe()) coordinates: CoordinatesQuery) {
-  // async findNearby(@Query() coordinates: CoordinatesQuery) {
-    console.log(coordinates)
     const driver = await this.DriverService.findNearby(coordinates)
     return { driver }
   }

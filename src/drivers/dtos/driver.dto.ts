@@ -47,12 +47,13 @@ export class CreateDriverDto {
   status?: string;
 }
 
-export enum DriverStatus {
-  PENDING = 'PENDING',
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  ONLINE = 'ONLINE',
-  BUSY = 'BUSY',
-}
+// Come from prisma/client
+// export enum DriverStatus {
+//   PENDING = 'PENDING',
+//   ACTIVE = 'ACTIVE',
+//   INACTIVE = 'INACTIVE',
+//   ONLINE = 'ONLINE',
+//   BUSY = 'BUSY',
+// }
 
 
