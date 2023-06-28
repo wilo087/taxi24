@@ -8,7 +8,38 @@ export class DriversService {
   constructor(private prisma: PrismaService) { }
 
   async findAll(): Promise<Driver[]> {
-    return this.prisma.driver.findMany();
+    return this.prisma.driver.findMany({
+      include: {
+        company: true,
+        vehicle: true
+      }
+    });
+  }
+
+  async findOne(id: number): Promise<Driver | null> {
+    return this.prisma.driver.findUnique({
+      where: {
+        id
+      },
+      include: {
+        company: true,
+        vehicle: true
+      }
+    });
+  }
+
+  async findNearby(coordinates: unknown): Promise<Driver | null> {
+    console.log(coordinates);
+
+    return this.prisma.driver.findUnique({
+      where: {
+        id: 1
+      },
+      include: {
+        company: true,
+        vehicle: true
+      }
+    });
   }
 
   async create(driver: CreateDriverDto): Promise<Driver> {

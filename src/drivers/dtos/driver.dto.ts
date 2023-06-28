@@ -1,3 +1,25 @@
+import { Transform } from 'class-transformer';
+import { IsNumber, Max, Min } from 'class-validator';
+
+
+export class CoordinatesQuery {
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  @Transform(({ value }: any) => parseFloat(value))
+  public latitude: number;
+
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  @Transform(({ value }: any) => parseFloat(value))
+  public longitude: number;
+
+  @IsNumber()
+  @Transform(({ value }: any) => parseFloat(value))
+  public distance: number;
+}
+
 export class DriverDto {
   id: number;
   firstName: string;
@@ -32,3 +54,5 @@ export enum DriverStatus {
   ONLINE = 'ONLINE',
   BUSY = 'BUSY',
 }
+
+
