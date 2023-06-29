@@ -1,15 +1,19 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, ParseEnumPipe } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, ParseIntPipe, ParseEnumPipe, Query } from '@nestjs/common'
 import { TripsService } from '../services/trips.service'
 import { CreateTripDto } from '@trips/dtos/trips.dto'
 import { TripsStatus } from '@prisma/client'
+import { TripsStatusArrayPipe } from '@trips/pipes/status.pipe'
 
 @Controller('trips')
 export class TripsController {
   constructor(private readonly tripService: TripsService) { }
 
   @Get()
-  async findAll() {
-    const trips = await this.tripService.findAll()
+  async findByStatus(
+    @Query('status', new TripsStatusArrayPipe())
+    status: TripsStatus[]
+  ) {
+    const trips = await this.tripService.findByStatus(status)
     return { trips }
   }
 
@@ -33,5 +37,5 @@ export class TripsController {
     const trip = await this.tripService.updateStatus(id, status)
     return { trip }
   }
-
 }
+

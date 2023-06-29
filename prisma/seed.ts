@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  const currentDate = new Date();
+  const plus1hourDate = new Date(currentDate.getTime() + (60 * 60 * 1000));
   // Brands
   await prisma.brand.createMany({
     data: [
@@ -605,6 +607,33 @@ async function main() {
     data: {
       driverId: 1,
       passengerId: passenger1.id,
+      status: "COMPLETED",
+      startedAt: currentDate,
+      endedAt: plus1hourDate,
+      fromLatitude: 18.45243530963858,
+      fromLongitude: -69.96983455812554,
+      toLatitude: 18.46358726813364,
+      toLongitude: -69.96861002974642,
+    },
+  });
+
+  const trip2 = await prisma.trip.create({
+    data: {
+      driverId: 1,
+      passengerId: passenger1.id,
+      status: "CANCELLED",
+      cancelledAt: currentDate,
+      fromLatitude: 18.45243530963858,
+      fromLongitude: -69.96983455812554,
+      toLatitude: 18.46358726813364,
+      toLongitude: -69.96861002974642,
+    },
+  });
+
+  const trip3 = await prisma.trip.create({
+    data: {
+      driverId: 1,
+      passengerId: passenger1.id,
       status: "REQUESTED",
       fromLatitude: 123.45,
       fromLongitude: 67.89,
@@ -613,12 +642,12 @@ async function main() {
     },
   });
 
-  const trip2 = await prisma.trip.create({
+  const trip4 = await prisma.trip.create({
     data: {
       driverId: 2,
       passengerId: passenger2.id,
-
       status: "IN_PROGRESS",
+      startedAt: currentDate,
       fromLatitude: 45.67,
       fromLongitude: 89.01,
       toLatitude: 20.21,
@@ -626,7 +655,7 @@ async function main() {
     },
   });
 
-  // Crear facturas
+  // Invices
   await prisma.invoice.create({
     data: {
       tripId: trip1.id,
@@ -639,11 +668,31 @@ async function main() {
 
   await prisma.invoice.create({
     data: {
-      tripId: trip2.id,
+      tripId: trip3.id,
       amount: 200.0,
       taxes: 18.0,
       status: "PENDING",
       paymentMethod: "CASH",
+    },
+  });
+
+  await prisma.invoice.create({
+    data: {
+      tripId: trip4.id,
+      amount: 200.0,
+      taxes: 18.0,
+      status: "PENDING",
+      paymentMethod: "CARD",
+    },
+  });
+
+  await prisma.invoice.create({
+    data: {
+      tripId: trip2.id,
+      amount: 200.0,
+      taxes: 18.0,
+      status: "CANCELLED",
+      paymentMethod: "CARD",
     },
   });
 

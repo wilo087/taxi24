@@ -1,22 +1,28 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { PgDBService } from 'src/pgdb/pgdb.service'
-import { Trip, TripPayload, TripsStatus } from '@prisma/client'
+import { Trip, TripsStatus } from '@prisma/client'
 import { CreateTripDto, UpdateTripStatusDto } from '@trips/dtos/trips.dto';
 
 @Injectable()
 export class TripsService {
   constructor(private db: PgDBService) { }
 
-  async findAll(): Promise<Trip[]> {
-    return this.db.trip.findMany();
+  async findByStatus(status: TripsStatus[]): Promise<Trip[]> {
+    return this.db.trip.findMany({
+      where: {
+        status: {
+          in: status
+        }
+      }
+    });
   }
 
-  async findOne(id: number): Promise<Trip | null | unknown> {
+  async findOne(id: number): Promise<Trip | null> {
     return this.db.trip.findUnique({ where: { id } })
   }
 
   async request(data: CreateTripDto): Promise<Trip> {
-    // TODO: Validate driver or passenger has active status
+    // TODO: Validate that driver or passenger has active status
     return this.db.trip.create({ data: { ...data, status: TripsStatus.REQUESTED } })
   }
 
