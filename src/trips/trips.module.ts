@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TripsController } from './controllers/trips.controller'
 import { TripsService } from './services/trips.service'
-import { PrismaModule } from 'src/prisma/prisma.module'
+import { PrismaModule } from 'src/pgdb/pgdb.module'
 
 @Module({
   controllers: [TripsController],

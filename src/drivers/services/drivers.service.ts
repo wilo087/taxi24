@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PgDBService } from 'src/pgdb/pgdb.service'
 import { CoordinatesQuery, CreateDriverDto } from '../dtos/driver.dto'
 import { Driver, DriverStatus } from '@prisma/client'
 import { Geo } from '@utils/geo.utils'
 
 @Injectable()
 export class DriversService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private db: PgDBService) { }
 
   async findAll(status: DriverStatus | undefined = undefined): Promise<Driver[]> {
-    return this.prisma.driver.findMany({
+    return this.db.driver.findMany({
       where: { status },
       include: {
         company: true,
@@ -19,7 +19,7 @@ export class DriversService {
   }
 
   async findById(id: number): Promise<Driver | null> {
-    return this.prisma.driver.findUnique({
+    return this.db.driver.findUnique({
       where: { id },
       include: {
         company: true,
@@ -31,7 +31,7 @@ export class DriversService {
   }
 
   async findByStatus(status: DriverStatus): Promise<Driver | null> {
-    return this.prisma.driver.findFirst({
+    return this.db.driver.findFirst({
       where: { status },
       include: {
         company: true,
@@ -54,7 +54,7 @@ export class DriversService {
     //     LIMIT ${limit}`
     // )
 
-    const drivers = await this.prisma.driver.findMany({
+    const drivers = await this.db.driver.findMany({
       where: {
         AND: [
           {
@@ -86,7 +86,7 @@ export class DriversService {
   }
 
   async create(driver: CreateDriverDto): Promise<Driver> {
-    return this.prisma.driver.create({
+    return this.db.driver.create({
       data: {
         firstName: driver.firstName,
         lastName: driver.lastName,
