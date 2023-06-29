@@ -5,7 +5,7 @@ CREATE TYPE "InvoiceStatus" AS ENUM ('OPEN', 'CANCELLED', 'PAID');
 CREATE TYPE "PaymentMethod" AS ENUM ('CASH', 'CARD');
 
 -- CreateEnum
-CREATE TYPE "TripsStatus" AS ENUM ('STARTED', 'IN_PROGRESS', 'COMPLETED');
+CREATE TYPE "TripsStatus" AS ENUM ('REQUESTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED');
 
 -- CreateEnum
 CREATE TYPE "DriverStatus" AS ENUM ('PENDING', 'ACTIVE', 'INACTIVE', 'ONLINE', 'BUSY');
@@ -75,6 +75,7 @@ CREATE TABLE "drivers" (
 CREATE TABLE "trips" (
     "id" SERIAL NOT NULL,
     "driver_id" INTEGER NOT NULL,
+    "passengerId" INTEGER NOT NULL,
     "status" "TripsStatus" NOT NULL,
     "from_latitude" DOUBLE PRECISION NOT NULL,
     "from_longitude" DOUBLE PRECISION NOT NULL,
@@ -83,7 +84,7 @@ CREATE TABLE "trips" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "started_at" TIMESTAMP(3),
     "ended_at" TIMESTAMP(3),
-    "passengerId" INTEGER NOT NULL,
+    "cancelle_at" TIMESTAMP(3),
 
     CONSTRAINT "trips_pkey" PRIMARY KEY ("id")
 );

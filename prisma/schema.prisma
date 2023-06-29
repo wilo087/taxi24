@@ -76,6 +76,7 @@ model Driver {
 model Trip {
   id            Int         @id @default(autoincrement())
   driverId      Int         @map("driver_id")
+  passengerId   Int
   status        TripsStatus
   fromLatitude  Float       @map("from_latitude")
   fromLongitude Float       @map("from_longitude")
@@ -84,25 +85,25 @@ model Trip {
   createdAt     DateTime    @default(now()) @map("created_at")
   startedAt     DateTime?   @map("started_at")
   endedAt       DateTime?   @map("ended_at")
+  cancelledAt   DateTime?   @map("cancelle_at")
 
-  Invoice     Invoice?
-  Passenger   Passenger @relation(fields: [passengerId], references: [id])
-  passengerId Int
-  Driver      Driver    @relation(fields: [driverId], references: [id])
+  Invoice   Invoice?
+  Passenger Passenger @relation(fields: [passengerId], references: [id])
+  Driver    Driver    @relation(fields: [driverId], references: [id])
 
   @@map("trips")
 }
 
 model Vehicle {
-  id        Int    @id @default(autoincrement())
-  driverId  Int?   @unique @map("driver_id")
-  color     String
-  brandId   Int    @map("brand_id")
-  vin       String @unique
-  year      Int
+  id       Int    @id @default(autoincrement())
+  driverId Int?   @unique @map("driver_id")
+  color    String
+  brandId  Int    @map("brand_id")
+  vin      String @unique
+  year     Int
 
-  brand   Brand   @relation(fields: [brandId], references: [id])
-  driver  Driver? @relation(fields: [driverId], references: [id])
+  brand  Brand   @relation(fields: [brandId], references: [id])
+  driver Driver? @relation(fields: [driverId], references: [id])
 
   @@map("vehicles")
 }
@@ -133,9 +134,10 @@ enum PaymentMethod {
 }
 
 enum TripsStatus {
-  STARTED
+  REQUESTED
   IN_PROGRESS
   COMPLETED
+  CANCELLED
 }
 
 enum DriverStatus {

@@ -605,7 +605,7 @@ async function main() {
     data: {
       driverId: 1,
       passengerId: passenger1.id,
-      status: "STARTED",
+      status: "REQUESTED",
       fromLatitude: 123.45,
       fromLongitude: 67.89,
       toLatitude: 10.11,

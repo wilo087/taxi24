@@ -6,7 +6,7 @@ import { DriverStatus } from '@prisma/client'
 
 @Controller('drivers')
 export class DriversController {
-  constructor(private DriverService: DriversService) { }
+  constructor(private readonly DriverService: DriversService) { }
 
   @Get()
   async findAll(@Query('status', new ParseEnumPipe({ ...DriverStatus, undefined })) status?: DriverStatus) {
