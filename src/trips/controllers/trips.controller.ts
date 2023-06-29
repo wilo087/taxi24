@@ -29,6 +29,7 @@ export class TripsController {
   @Post(':id/:status')
   async updateStatus(
     @Param('id', ParseIntPipe) id: number,
+    // TODO: Move this param to body request
     @Param('status', new ParseEnumPipe(TripsStatus)) status: TripsStatus
   ) {
     const trip = await this.tripService.updateStatus(id, status)

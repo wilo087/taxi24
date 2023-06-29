@@ -6,4 +6,4 @@ import { PgDBService } from './pgdb.service';
   exports: [PgDBService],
 })
 
-export class PrismaModule { }
+export class PgDbModule { }

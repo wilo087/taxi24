@@ -96,9 +96,6 @@ export class DriversService {
         document: driver.document,
         documentType: driver.documentType,
         status: driver.status as DriverStatus,
-
-        // picture?: string;
-        // status?: string;
       },
     });
   }
