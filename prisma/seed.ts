@@ -466,7 +466,7 @@ async function main() {
   });
 
 
-  // companies
+  // Companies
   await prisma.company.createMany({
     data: [
       {
@@ -484,7 +484,7 @@ async function main() {
     ]
   });
 
-  // Crear pasajeros
+  // Passengers
   const passenger1 = await prisma.passenger.create({
     data: {
       firstName: "Pasajero 1",
@@ -518,8 +518,8 @@ async function main() {
       document: "123456789",
       documentType: "C",
       status: "ACTIVE",
-      currentLat: 0,
-      currentLon: 0,
+      currentLat: 18.460849695987598, // La USAD de la Máximo Gómez 
+      currentLon: -69.920673029112,
       vehicleId: 1,
     },
     {
@@ -531,10 +531,37 @@ async function main() {
       document: "123543789",
       documentType: "C",
       status: "ACTIVE",
+      currentLat: 18.482678066040734, // Agora Mall
+      currentLon: -69.93907456345791,
+      vehicleId: 2,
+    },
+    {
+      firstName: "Conductor 3",
+      lastName: "Apellido 3",
+      email: "conductor3@example.com",
+      phone: "1849320990",
+      companyId: 1,
+      document: "0014567894",
+      documentType: "C",
+      status: "ACTIVE",
+      currentLat: 18.461638480046954, // (Plaza Lama de la 27 con Churchill)
+      currentLon: -69.93607038842656,
+      vehicleId: 3,
+    },
+    {
+      firstName: "Conductor 4",
+      lastName: "Apellido 4",
+      email: "conductor4@example.com",
+      phone: "18298183322",
+      companyId: 1,
+      document: "22400198837",
+      documentType: "C",
+      status: "INACTIVE",
       currentLat: 0,
       currentLon: 0,
-      vehicleId: 2,
-    }],
+      vehicleId: 4,
+    },
+    ]
   })
 
 
@@ -542,19 +569,31 @@ async function main() {
   await prisma.vehicle.createMany({
     data: [
       {
-        companyId: 1,
         driverId: 1,
         color: "Rojo",
         brandId: 10,
-        vin: "VIN123456789",
+        vin: "VIN123456781",
         year: 2021,
       },
       {
-        companyId: 2,
         driverId: 2,
         color: "Azul",
         brandId: 10,
-        vin: "VIN10006789",
+        vin: "VIN10006782",
+        year: 2017,
+      },
+      {
+        driverId: 3,
+        color: "Blanco",
+        brandId: 10,
+        vin: "VIN123456783",
+        year: 2019,
+      },
+      {
+        driverId: 4,
+        color: "Negro",
+        brandId: 15,
+        vin: "VIN10006784",
         year: 2023,
       },
     ],

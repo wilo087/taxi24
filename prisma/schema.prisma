@@ -28,7 +28,6 @@ model Company {
   drivers   Driver[]
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  vehicles  Vehicle[]
 
   @@map("companies")
 }
@@ -60,7 +59,7 @@ model Driver {
   documentType String       @map("document_type")
   picture      String?
   currentLat   Float?       @map("current_lat")
-  currentLon   Float?       @map("current_log")
+  currentLon   Float?       @map("current_lon")
   status       DriverStatus
 
   createdAt DateTime  @default(now()) @map("created_at")
@@ -96,14 +95,12 @@ model Trip {
 
 model Vehicle {
   id        Int    @id @default(autoincrement())
-  companyId Int    @map("company_id")
   driverId  Int?   @unique @map("driver_id")
   color     String
   brandId   Int    @map("brand_id")
   vin       String @unique
   year      Int
 
-  company Company @relation(fields: [companyId], references: [id])
   brand   Brand   @relation(fields: [brandId], references: [id])
   driver  Driver? @relation(fields: [driverId], references: [id])
 

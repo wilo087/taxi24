@@ -1,15 +1,16 @@
-import { Controller, Post, Body, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
+import { Controller, Post, Body, Get, Param, ParseIntPipe, Query, ParseEnumPipe } from '@nestjs/common'
 import { DriversService } from '../services/drivers.service'
 import { CoordinatesQuery, CreateDriverDto } from '../dtos/driver.dto'
 import { CoordinatesValidationPipe } from '../pipes/coordinates.pipe'
+import { DriverStatus } from '@prisma/client'
 
 @Controller('drivers')
 export class DriversController {
   constructor(private DriverService: DriversService) { }
 
   @Get()
-  async findAll() {
-    const drivers = await this.DriverService.findAll()
+  async findAll(@Query('status', new ParseEnumPipe({ ...DriverStatus, undefined })) status?: DriverStatus) {
+    const drivers = await this.DriverService.findAll(status)
     return { drivers }
   }
 
@@ -21,7 +22,7 @@ export class DriversController {
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    const driver = await this.DriverService.findOne(id)
+    const driver = await this.DriverService.findById(id)
     return { driver }
   }
 

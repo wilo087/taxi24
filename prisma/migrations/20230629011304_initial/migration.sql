@@ -62,7 +62,7 @@ CREATE TABLE "drivers" (
     "document_type" TEXT NOT NULL,
     "picture" TEXT,
     "current_lat" DOUBLE PRECISION,
-    "current_log" DOUBLE PRECISION,
+    "current_lon" DOUBLE PRECISION,
     "status" "DriverStatus" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
@@ -91,7 +91,6 @@ CREATE TABLE "trips" (
 -- CreateTable
 CREATE TABLE "vehicles" (
     "id" SERIAL NOT NULL,
-    "company_id" INTEGER NOT NULL,
     "driver_id" INTEGER,
     "color" TEXT NOT NULL,
     "brand_id" INTEGER NOT NULL,
@@ -139,9 +138,6 @@ ALTER TABLE "trips" ADD CONSTRAINT "trips_passengerId_fkey" FOREIGN KEY ("passen
 ALTER TABLE "trips" ADD CONSTRAINT "trips_driver_id_fkey" FOREIGN KEY ("driver_id") REFERENCES "drivers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "vehicles" ADD CONSTRAINT "vehicles_company_id_fkey" FOREIGN KEY ("company_id") REFERENCES "companies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "vehicles" ADD CONSTRAINT "vehicles_brand_id_fkey" FOREIGN KEY ("brand_id") REFERENCES "brands"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -149,3 +145,7 @@ ALTER TABLE "vehicles" ADD CONSTRAINT "vehicles_driver_id_fkey" FOREIGN KEY ("dr
 
 -- AddForeignKey
 ALTER TABLE "invoices" ADD CONSTRAINT "invoices_trip_id_fkey" FOREIGN KEY ("trip_id") REFERENCES "trips"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- CreateExtension
+CREATE EXTENSION IF NOT EXISTS cube;
+CREATE EXTENSION IF NOT EXISTS earthdistance;

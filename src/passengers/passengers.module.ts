@@ -6,7 +6,6 @@ import { PrismaModule } from 'src/prisma/prisma.module'
 @Module({
   controllers: [PassengersController],
   providers: [PassengersService],
-  exports: [PassengersService],
   imports: [PrismaModule],
 })
 
