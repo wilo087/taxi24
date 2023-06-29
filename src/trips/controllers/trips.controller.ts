@@ -9,10 +9,7 @@ export class TripsController {
   constructor(private readonly tripService: TripsService) { }
 
   @Get()
-  async findByStatus(
-    @Query('status', new TripsStatusArrayPipe())
-    status: TripsStatus[]
-  ) {
+  async findByStatus(@Query('status', new TripsStatusArrayPipe()) status: TripsStatus[]) {
     const trips = await this.tripService.findByStatus(status)
     return { trips }
   }

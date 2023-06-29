@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { PgDBService } from 'src/pgdb/pgdb.service'
 import { Trip, TripsStatus } from '@prisma/client'
-import { CreateTripDto, UpdateTripStatusDto } from '@trips/dtos/trips.dto';
+import { CreateTripDto, UpdateTripStatusDto } from '@trips/dtos/trips.dto'
 
 @Injectable()
 export class TripsService {
@@ -9,12 +9,8 @@ export class TripsService {
 
   async findByStatus(status: TripsStatus[]): Promise<Trip[]> {
     return this.db.trip.findMany({
-      where: {
-        status: {
-          in: status
-        }
-      }
-    });
+      where: { status: { in: status } }
+    })
   }
 
   async findOne(id: number): Promise<Trip | null> {

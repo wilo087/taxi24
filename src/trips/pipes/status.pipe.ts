@@ -4,7 +4,7 @@ import { TripsStatus } from '@prisma/client';
 @Injectable()
 export class TripsStatusArrayPipe implements PipeTransform<string, string[]> {
   transform(value: any): string[] {
-    const values = value.split(',').trim()
+    const values = value.split(',')
     const validStatusValues = Object.values(TripsStatus);
 
     for (const status of values) {
