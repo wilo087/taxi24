@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, ParseIntPipe, ParseEnumPipe } from '@nestjs/common'
 import { TripsService } from '../services/trips.service'
 import { CreateTripDto } from '@trips/dtos/trips.dto'
 import { TripsStatus } from '@prisma/client'
@@ -28,7 +28,7 @@ export class TripsController {
   @Post(':id/:status')
   async updateStatus(
     @Param('id', ParseIntPipe) id: number,
-    @Param('status', ParseIntPipe) status: TripsStatus
+    @Param('status', new ParseEnumPipe(TripsStatus)) status: TripsStatus
   ) {
     const trip = await this.tripService.updateStatus(id, status)
     return { trip }
