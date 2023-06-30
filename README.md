@@ -128,3 +128,7 @@ curl --location 'http://localhost:3000/passengers/1'
 curl --location 'http://localhost:3000/passengers/trip?latitude=18.480023716974017&longitude=-69.89138258140852&distance=3'
 ```
 > latitude and longitude are current passenger location
+
+
+### Datbase Schema
+![Database Schema](docs/database_schema.png)
