@@ -16,24 +16,23 @@ services:
     ports:
       - 5432:5432
 
-  # taxi24.service:
-  #   container_name: taxi24_service
-  #   networks:
-  #     - jobsity_taxi24_net
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/service/Dockerfile.dev
-  #   image: jobsity_taxi24_service
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules/
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #     - taxi24.postgres
-  #     - taxi24.api
+  taxi24.service:
+    container_name: taxi24_service
+    networks:
+      - taxi24_net
+    build:
+      context: .
+      dockerfile: ./docker/service/Dockerfile.dev
+    image: taxi24_service
+    volumes:
+      - .:/app
+      - /app/node_modules/
+    ports:
+      - 3000:3000
+    depends_on:
+      - taxi24.postgres
 
-  # taxi24.api:
+  # taxi24.socket:
   #   container_name: taxi24_api
   #   networks:
   #     - jobsity_taxi24_net

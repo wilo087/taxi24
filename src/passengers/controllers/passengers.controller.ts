@@ -13,15 +13,15 @@ export class PassengersController {
 
   @Get()
   findAll() {
-    return this.passengersService.findAll();
+    const passengers = this.passengersService.findAll()
+    return { passengers }
   }
 
 
   @Get('trip')
   async requestTrip(@Query(new CoordinatesValidationPipe()) coordinates: CoordinatesQuery) {
-    {
-      return this.driversService.findNearby(coordinates);
-    }
+    const drivers = this.driversService.findNearby(coordinates);
+    return { drivers }
   }
 
   @Get(':id')
