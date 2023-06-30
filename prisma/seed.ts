@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
-  const currentDate = new Date();
-  const plus1hourDate = new Date(currentDate.getTime() + (60 * 60 * 1000));
+  const currentDate = new Date()
+  const plus1hourDate = new Date(currentDate.getTime() + (60 * 60 * 1000))
   // Brands
   await prisma.brand.createMany({
     data: [
@@ -465,7 +465,7 @@ async function main() {
         name: "Zil"
       }
     ],
-  });
+  })
 
 
   // Companies
@@ -484,7 +484,7 @@ async function main() {
         address: "Dirección 2",
       },
     ]
-  });
+  })
 
   // Passengers
   const passenger1 = await prisma.passenger.create({
@@ -496,7 +496,7 @@ async function main() {
       document: "123456789",
       documentType: "C",
     },
-  });
+  })
 
   const passenger2 = await prisma.passenger.create({
     data: {
@@ -507,7 +507,7 @@ async function main() {
       document: "987654321",
       documentType: "P",
     },
-  });
+  })
 
   // Drivers
   await prisma.driver.createMany({
@@ -599,7 +599,7 @@ async function main() {
         year: 2023,
       },
     ],
-  });
+  })
 
 
   // Crear viajes
@@ -615,7 +615,7 @@ async function main() {
       toLatitude: 18.46358726813364,
       toLongitude: -69.96861002974642,
     },
-  });
+  })
 
   const trip2 = await prisma.trip.create({
     data: {
@@ -628,7 +628,7 @@ async function main() {
       toLatitude: 18.46358726813364,
       toLongitude: -69.96861002974642,
     },
-  });
+  })
 
   const trip3 = await prisma.trip.create({
     data: {
@@ -640,7 +640,7 @@ async function main() {
       toLatitude: 10.11,
       toLongitude: 12.13,
     },
-  });
+  })
 
   const trip4 = await prisma.trip.create({
     data: {
@@ -653,7 +653,7 @@ async function main() {
       toLatitude: 20.21,
       toLongitude: 22.23,
     },
-  });
+  })
 
   // Invices
   await prisma.invoice.create({
@@ -664,7 +664,7 @@ async function main() {
       status: "PAID",
       paymentMethod: "CASH",
     },
-  });
+  })
 
   await prisma.invoice.create({
     data: {
@@ -674,7 +674,7 @@ async function main() {
       status: "PENDING",
       paymentMethod: "CASH",
     },
-  });
+  })
 
   await prisma.invoice.create({
     data: {
@@ -684,7 +684,7 @@ async function main() {
       status: "PENDING",
       paymentMethod: "CARD",
     },
-  });
+  })
 
   await prisma.invoice.create({
     data: {
@@ -694,9 +694,9 @@ async function main() {
       status: "CANCELLED",
       paymentMethod: "CARD",
     },
-  });
+  })
 
-  console.log("Seeds created!");
+  console.log("Seeds created!")
 }
 
 main()

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { DriversController } from './drivers.controller'
 import { DriversService } from '../services/drivers.service'
 import { PgDbService } from '@pgdb/pgdb.service'
+import { DriverStatus } from '@prisma/client'
 
 describe('DriversController', () => {
   let controller: DriversController
@@ -68,6 +69,29 @@ describe('DriversController', () => {
       jest.spyOn(driverService, 'findById').mockResolvedValue(driver as any)
       const result = await controller.findOne(id)
       expect(result).toEqual({ driver })
+    })
+  })
+
+  describe('create', () => {
+    it('should create a new driver', async () => {
+      const input = {
+        firstName: "Conductor 125",
+        lastName: "Apellido 125",
+        email: "conductor125@example.com",
+        phone: "18345678905",
+        companyId: 1,
+        document: "153456789",
+        documentType: "C",
+        picture: null,
+        currentLat: 18.4608496959876,
+        currentLon: -69.920673029112,
+        vehicleId: 1,
+      }
+
+      jest.spyOn(driverService, 'create').mockResolvedValue(input as any)
+      const result = await controller.create(input as any)
+
+      expect(result).toEqual(result)
     })
   })
 })
