@@ -5,10 +5,10 @@ import { PgDbService } from '@pgdb/pgdb.service'
 
 describe('DriversController', () => {
   let controller: DriversController
-  // let driverService: DriversService
+  let driverService: DriversService
 
   beforeEach(async () => {
-    // driverService = new DriversService(PgDbService as any)
+    driverService = new DriversService(PgDbService as any)
     // controller = new DriversController(driverService)
 
     const module: TestingModule = await Test.createTestingModule({
@@ -20,5 +20,54 @@ describe('DriversController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined()
+  })
+
+  describe('findOne', () => {
+    it('should return the driver with the specified ID', async () => {
+      const id = 1
+      const driver = {
+        id: 1,
+        firstName: "Conductor 1",
+        lastName: "Apellido 1",
+        email: "conductor1@example.com",
+        phone: "1234567890",
+        companyId: 1,
+        document: "123456789",
+        documentType: "C",
+        picture: null,
+        currentLat: 18.4608496959876,
+        currentLon: -69.920673029112,
+        status: "ACTIVE",
+        createdAt: new Date("2023-06-30T02:05:13.442Z"),
+        updatedAt: new Date("2023-06-30T02:05:13.442Z"),
+        vehicleId: 1,
+        company: {
+          id: 1,
+          name: "Company 1",
+          rnc: 123456789,
+          status: "ACTIVE",
+          address: "Dirección 1",
+          createdAt: new Date('2023-06-30T02:05:13.434Z'),
+          updatedAt: new Date('2023-06-30T02:05:13.434Z')
+        },
+        vehicle: {
+          id: 1,
+          driverId: 1,
+          color: "Rojo",
+          brandId: 10,
+          vin: "VIN123456781",
+          year: 2021,
+          brand: {
+            id: 10,
+            name: "Bentley",
+            logo: "https://www.car-logos.org/wp-content/uploads/2011/09/bentley.png"
+          }
+        }
+      }
+
+      jest.spyOn(driverService, 'findById').mockResolvedValue(driver as any)
+      const result = await controller.findOne(id)
+      expect(result).toEqual({ driver })
+    })
   })
 })
