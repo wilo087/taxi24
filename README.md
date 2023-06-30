@@ -95,20 +95,18 @@ $ curl --location 'http://localhost:3000/trips/request' \
 
 # Note:
 # 1st. the passengerId should be taken from the session and not sent to anyone other than an administrator creating the travel request
-
 # 2nd. It is pending to validate that both the passenger and the driver do not have an active trip (in the case of the driver it should allow it as long as it is in range and the trip is ending)
 ```
 
-### /stats - GET (role admin)
-```sh
-curl --location 'http://localhost:3000/stats' --header 'Authorization: Bearer <token>'
-```
+### /trips - PUT
+```sh 
+# update trip status=(REQUESTED, IN_PROGRESS, COMPLETED, CANCELLED)
+# /trips/:id/:status
+curl --location --request PUT 'http://localhost:3000/trips/2/COMPLETED'
 
-### /history - GET
-```sh
-curl --location 'http://localhost:3000/history' --header 'Authorization: Bearer <token>'
-```
-### /stock/:code - GET
-```sh
-curl --location 'http://localhost:3000/stock/aapl.us' --header 'Authorization: Bearer <token>'
+# Note: 
+# REQUESTED can be updated to CANCELLED, IN_PROGRESS but not to COMPLETED
+# IN_PROGRESS can be updated to COMPLETED but not to REQUESTED or CANCELLED
+# COMPLETED can not be updated
+# CANCELLED can not be updated
 ```

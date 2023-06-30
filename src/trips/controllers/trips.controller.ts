@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, ParseEnumPipe, Query } from '@nestjs/common'
+import { Controller, Get, Post, Put, Body, Param, ParseIntPipe, ParseEnumPipe, Query } from '@nestjs/common'
 import { TripsService } from '../services/trips.service'
 import { CreateTripDto } from '@trips/dtos/trips.dto'
 import { TripsStatus } from '@prisma/client'
@@ -26,7 +26,7 @@ export class TripsController {
     return { trip }
   }
 
-  @Post(':id/:status')
+  @Put(':id/:status')
   async updateStatus(
     @Param('id', ParseIntPipe) id: number,
     // TODO: Move this param to body request
