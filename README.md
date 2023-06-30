@@ -2,34 +2,35 @@
 
 ### Requirements
 ```sh
-$ docker -v
+# verify you have docker installed
+docker -v
 # Docker version 20.10.24, build 297e128
 ```
 
 ### Getting started
 Setup the environment
 ```sh
-$ cp .env.example .env
+cp .env.example .env
 
 # Depebding on your OS you may need to give execution permission to the setup script
-$ chmod +x ./docker/service/setup.sh
+chmod +x ./docker/service/setup.sh
 ```
 
 Run the services
 ```sh
-$ docker compose up
+docker compose up
 
 # if you want to run in background
-$ docker compose up -d
+docker compose up -d
 ```
 You endpoint should be available at [`http://localhost:3000` 🚀](http://localhost:3000)
 
 ## Running tests
 ```sh
-$ node -v
+node -v
 # v18.16.0
 
-$ yarn install && yarn test
+yarn install && yarn test
 ```
 
 ## API Documentation
@@ -37,20 +38,20 @@ You can test the API using the [Postman collection](https://www.postman.com/qrio
 
 
 ## Drivers
-### /drivers - GET
+/drivers - GET
 ```sh
 # get all drivers 
-$ curl --location 'http://localhost:3000/drivers'
+curl --location 'http://localhost:3000/drivers'
 
 # get all drivers by status /drivers?status=(PENDING, ACTIVE, INACTIVE, ONLINE, BUSY)
-$ curl --location 'http://localhost:3000/drivers?status=ACTIVE'
+curl --location 'http://localhost:3000/drivers?status=ACTIVE'
 
 # get driver by id /drivers/:id
-$ curl --location 'http://localhost:3000/drivers/1'
+curl --location 'http://localhost:3000/drivers/1'
 
 # get all drivers available in a radius of 3km from a given location
 # /drivers/nearby?latitude=(longitude)&longitude=(latitude)&distance=(distance in km)
-$ curl --location 'http://localhost:3000/drivers/nearby?latitude=18.480023716974017&longitude=-69.89138258140852&distance=3'
+curl --location 'http://localhost:3000/drivers/nearby?latitude=18.480023716974017&longitude=-69.89138258140852&distance=3'
 
 # Conductor 1: 18.460849695987598, -69.920673029112 (La USAD de la Máximo Gómez)
 # Conductor 2: 18.482678066040734, -69.93907456345791 (Agora Mall)
@@ -61,11 +62,11 @@ $ curl --location 'http://localhost:3000/drivers/nearby?latitude=18.480023716974
 # For testing purposes the current location of the driver was put in the DB, this should be a service socket where all drivers are broadcast with the current location, status and other relevant information
 ```
 
-### /drivers - POST
+/drivers - POST
 ```sh
 # create a new driver 
 ## this endpoint has not been finished and relation with vehicle is not being created yet - WIP
-$ curl --location 'http://localhost:3000/drivers' \
+curl --location 'http://localhost:3000/drivers' \
 --header 'Content-Type: application/json' \
 --data '{
       "firstName": "Conductor 10",
@@ -80,12 +81,13 @@ $ curl --location 'http://localhost:3000/drivers' \
       "vehicleId": 1
 }'
 ```
+
 ## Trips
 
-### /trips/request - POST
+/trips/request - POST
 ```sh
 # Request new trip
-$ curl --location 'http://localhost:3000/trips/request' \
+curl --location 'http://localhost:3000/trips/request' \
 --header 'Content-Type: application/json' \
 --data '{
     "driverId": 1,
@@ -101,7 +103,7 @@ $ curl --location 'http://localhost:3000/trips/request' \
 # 2nd. It is pending to validate that both the passenger and the driver do not have an active trip (in the case of the driver it should allow it as long as it is in range and the trip is ending)
 ```
 
-### /trips - PUT
+/trips - PUT
 ```sh 
 # update trip /trips/:id/:status=(REQUESTED, IN_PROGRESS, COMPLETED, CANCELLED)
 curl --location --request PUT 'http://localhost:3000/trips/2/COMPLETED'
@@ -120,7 +122,7 @@ curl --location 'http://localhost:3000/trips?status=REQUESTED,IN_PROGRESS'
 
 ## Passengers
 
-### /passengers - GET
+/passengers - GET
 ```sh
 # get all passengers 
 curl --location 'http://localhost:3000/passengers'
