@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "86c84e4a-b64e-4fbc-b218-cd2e2ebd88bf",
+		"name": "Taxi24",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1157554",
+		"_collection_link": "https://www.postman.com/qrioso/workspace/taxi24-qik-challenge/collection/1157554-86c84e4a-b64e-4fbc-b218-cd2e2ebd88bf?action=share&creator=1157554&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers?status=INACTIVE",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "INACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/drivers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers?status=INACTIVE",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "INACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers/nearby?latitude=18.480023716974017&longitude=-69.89138258140852&distance=2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "18.480023716974017"
+								},
+								{
+									"key": "longitude",
+									"value": "-69.89138258140852"
+								},
+								{
+									"key": "distance",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Driver",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"firstName\": \"Conductor 3\",\n      \"lastName\": \"Apellido 3\",\n      \"email\": \"conductor3@example.com\",\n      \"phone\": \"1849320990\",\n      \"companyId\": 1,\n      \"document\": \"0014567894\",\n      \"documentType\": \"C\",\n      \"currentLat\": 18.461638480046954, // (Plaza Lama de la 27 con Churchill)\n      \"currentLon\": -69.93607038842656,\n      \"vehicleId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/drivers"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Find by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/trips/3"
+					},
+					"response": [
+						{
+							"name": "Find by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{HOST}}/trips/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f0-XNh/CHqGKRCq6t4udChisDZbfOU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Jun 2023 03:45:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"trip\": {\n        \"id\": 3,\n        \"driverId\": 1,\n        \"passengerId\": 1,\n        \"status\": \"REQUESTED\",\n        \"fromLatitude\": 123.45,\n        \"fromLongitude\": 67.89,\n        \"toLatitude\": 10.11,\n        \"toLongitude\": 12.13,\n        \"createdAt\": \"2023-06-30T02:05:13.451Z\",\n        \"startedAt\": null,\n        \"endedAt\": null,\n        \"cancelledAt\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Find by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/trips?status=REQUESTED,IN_PROGRESS",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"trips"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "REQUESTED,IN_PROGRESS"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/trips?status=REQUESTED,IN_PROGRESS",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"trips"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "REQUESTED,IN_PROGRESS"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "498"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f2-ZU0uwyfDC4jts5G072/WxtL3dH0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 29 Jun 2023 18:36:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"trips\": [\n        {\n            \"id\": 3,\n            \"driverId\": 1,\n            \"passengerId\": 1,\n            \"status\": \"REQUESTED\",\n            \"fromLatitude\": 123.45,\n            \"fromLongitude\": 67.89,\n            \"toLatitude\": 10.11,\n            \"toLongitude\": 12.13,\n            \"createdAt\": \"2023-06-29T16:43:38.052Z\",\n            \"startedAt\": null,\n            \"endedAt\": null,\n            \"cancelledAt\": null\n        },\n        {\n            \"id\": 4,\n            \"driverId\": 2,\n            \"passengerId\": 2,\n            \"status\": \"IN_PROGRESS\",\n            \"fromLatitude\": 45.67,\n            \"fromLongitude\": 89.01,\n            \"toLatitude\": 20.21,\n            \"toLongitude\": 22.23,\n            \"createdAt\": \"2023-06-29T16:43:38.057Z\",\n            \"startedAt\": \"2023-06-29T16:43:37.888Z\",\n            \"endedAt\": null,\n            \"cancelledAt\": null\n        }\n    ]\n}"
+						},
+						{
+							"name": "Invalid Status",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/trips?status=REQUESTED,IN_PROGRES",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"trips"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "REQUESTED,IN_PROGRES"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-rSSe3DqwnqH+WQ2HSZlxPU1B3vY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 29 Jun 2023 18:38:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid status value: IN_PROGRES\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Create New",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"driverId\": 1,\n    \"passengerId\": 2,\n    \"fromLatitude\": 18.45256586581231,\n    \"fromLongitude\": -69.96985064150694,\n    \"toLatitude\": 18.463101265411417,\n    \"toLongitude\": -69.96723786741612\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/trips/request",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"trips",
+								"request"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete trip or update status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "{{HOST}}/trips/2/COMPLETED"
+					},
+					"response": [
+						{
+							"name": "Invalid status change",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{HOST}}/trips/3/CANCELLED"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4a-51C3kRZP+lAroHoaukkELaw5rbQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 29 Jun 2023 03:19:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid status change\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Unknow status",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{HOST}}/trips/3/UNKNOWSTATUS"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"60-3VPp6JNhYUcpMysolJ6e9hgrSuk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 29 Jun 2023 16:24:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation failed (enum string is expected)\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{HOST}}/trips/2/COMPLETED"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "261"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"105-rdtY8olJ7CkHrCq/YsDT0VrWXrA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 29 Jun 2023 16:25:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"trip\": {\n        \"id\": 2,\n        \"driverId\": 2,\n        \"passengerId\": 2,\n        \"status\": \"COMPLETED\",\n        \"fromLatitude\": 45.67,\n        \"fromLongitude\": 89.01,\n        \"toLatitude\": 20.21,\n        \"toLongitude\": 22.23,\n        \"createdAt\": \"2023-06-29T03:04:29.382Z\",\n        \"startedAt\": null,\n        \"endedAt\": \"2023-06-29T16:25:07.489Z\",\n        \"cancelledAt\": null\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Passengers",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/passengers"
+					},
+					"response": []
+				},
+				{
+					"name": "Find by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/passengers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby Drivers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/passengers/trip?latitude=18.480023716974017&longitude=-69.89138258140852&distance=3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers",
+								"trip"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "18.480023716974017"
+								},
+								{
+									"key": "longitude",
+									"value": "-69.89138258140852"
+								},
+								{
+									"key": "distance",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

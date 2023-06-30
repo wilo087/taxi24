@@ -11,7 +11,7 @@ Setup the environment
 ```sh
 $ cp .env.example .env
 
-# Depebding on your OS you may need to give execution permission to the script
+# Depebding on your OS you may need to give execution permission to the setup script
 $ chmod +x ./docker/service/setup.sh
 ```
 
@@ -33,7 +33,7 @@ $ yarn install && yarn test
 ```
 
 ## API Documentation
-You can test the API using the [Postman collection](https://www.postman.com/qrioso/workspace/taxi24-qik-challenge/collection/1157554-86c84e4a-b64e-4fbc-b218-cd2e2ebd88bf)
+You can test the API using the [Postman collection](https://www.postman.com/qrioso/workspace/taxi24-qik-challenge/collection/1157554-86c84e4a-b64e-4fbc-b218-cd2e2ebd88bf) or download [postman collection](docs/taxi24_postman_collection.json) and import it to your postman app.
 
 
 ## Drivers
