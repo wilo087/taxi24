@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Put, Body, Param, ParseIntPipe, ParseEnumPipe, Query } from '@nestjs/common'
-import { TripsService } from '../services/trips.service'
 import { CreateTripDto } from '@trips/dtos/trips.dto'
 import { TripsStatus } from '@prisma/client'
 import { TripsStatusArrayPipe } from '@trips/pipes/status.pipe'
+import { TripsService } from '../services/trips.service'
 
 @Controller('trips')
 export class TripsController {

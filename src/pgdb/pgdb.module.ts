@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
-import { PgDBService } from './pgdb.service';
+import { Global, Module } from '@nestjs/common'
+import { PgDbService } from './pgdb.service'
 
+@Global()
 @Module({
-  providers: [PgDBService],
-  exports: [PgDBService],
+  providers: [PgDbService],
+  exports: [PgDbService],
 })
 
 export class PgDbModule { }

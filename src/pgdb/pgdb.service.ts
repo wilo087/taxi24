@@ -1,21 +1,21 @@
-import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common'
+import { PrismaClient } from '@prisma/client'
 
 @Injectable()
-export class PgDBService extends PrismaClient implements OnModuleInit {
+export class PgDbService extends PrismaClient implements OnModuleInit {
   constructor() {
     super({
       log: ['query', 'info', 'warn', 'error']
-    });
+    })
   }
 
   async onModuleInit() {
-    await this.$connect();
+    await this.$connect()
   }
 
   async enableShutdownHooks(app: INestApplication) {
     this.$on('beforeExit', async () => {
-      await app.close();
-    });
+      await app.close()
+    })
   }
 }

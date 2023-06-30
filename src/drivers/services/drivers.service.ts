@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { PgDBService } from 'src/pgdb/pgdb.service'
+import { PgDbService } from '../../pgdb/pgdb.service'
 import { CoordinatesQuery, CreateDriverDto } from '../dtos/driver.dto'
 import { Driver, DriverStatus } from '@prisma/client'
-import { Geo } from '@utils/geo.utils'
+import { Geo } from '../../utils/geo.utils'
 
 @Injectable()
 export class DriversService {
-  constructor(private db: PgDBService) { }
+  constructor(private db: PgDbService) { }
 
   async findAll(status: DriverStatus | undefined = undefined): Promise<Driver[]> {
     const drivers = await this.db.driver.findMany({
@@ -87,6 +87,6 @@ export class DriversService {
         documentType: driver.documentType,
         status: driver.status as DriverStatus,
       },
-    });
+    })
   }
 }

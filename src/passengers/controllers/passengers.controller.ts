@@ -1,7 +1,7 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
-import { DriversService } from '@drivers/services/drivers.service'
-import { CoordinatesQuery } from '@drivers/dtos/driver.dto'
-import { CoordinatesValidationPipe } from '@drivers/pipes/coordinates.pipe'
+import { DriversService } from '../../drivers/services/drivers.service'
+import { CoordinatesQuery } from '../../drivers/dtos/driver.dto'
+import { CoordinatesValidationPipe } from '../../drivers/pipes/coordinates.pipe'
 import { PassengersService } from '../services/passengers.service'
 
 @Controller('passengers')

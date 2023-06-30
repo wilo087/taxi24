@@ -27,7 +27,7 @@
       "@passengers/*": [
         "src/trips/*"
       ],
-      "@database/*": [
+      "@pgdb/*": [
         "src/pgdb/*"
       ],
       "@utils/*": [

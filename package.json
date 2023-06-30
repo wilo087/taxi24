@@ -59,6 +59,23 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "jest": {
+    "moduleNameMapper": {
+      "^@pgdb/(.*)$": [
+        "<rootDir>/pgdb/$1"
+      ],
+      "^@trips/(.*)$": [
+        "<rootDir>/trips/$1"
+      ],
+      "^@drivers/(.*)$": [
+        "<rootDir>/drivers/$1"
+      ],
+      "^@passengers/(.*)$": [
+        "<rootDir>/passengers/$1"
+      ],
+      "^@utils/(.*)$": [
+        "<rootDir>/utils/$1"
+      ]
+    },
     "moduleFileExtensions": [
       "js",
       "json",
@@ -73,6 +90,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleDirectories": [
+      "node_modules",
+      "src/*"
+    ]
   }
 }

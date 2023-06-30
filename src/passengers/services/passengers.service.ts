@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { PgDBService } from 'src/pgdb/pgdb.service'
+import { PgDbService } from '../../pgdb/pgdb.service'
 import { Passenger } from '@prisma/client'
 
 @Injectable()
 export class PassengersService {
-  constructor(private db: PgDBService) { }
+  constructor(private db: PgDbService) { }
 
   async findAll(): Promise<Passenger[]> {
     const passengers = this.db.passenger.findMany()

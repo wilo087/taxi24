@@ -4,36 +4,36 @@ import { IsInt, IsNumber, IsDate } from 'class-validator'
 
 export class CreateTripDto {
   @IsInt()
-  driverId: number;
+  driverId: number
 
   @IsInt()
-  passengerId: number;
+  passengerId: number
 
   @IsNumber()
   @Transform(({ value }) => parseFloat(value))
-  fromLatitude: number;
+  fromLatitude: number
 
   @IsNumber()
   @Transform(({ value }) => parseFloat(value))
-  fromLongitude: number;
+  fromLongitude: number
 
   @IsNumber()
   @Transform(({ value }) => parseFloat(value))
-  toLatitude: number;
+  toLatitude: number
 
   @IsNumber()
   @Transform(({ value }) => parseFloat(value))
-  toLongitude: number;
+  toLongitude: number
 }
 
 export class UpdateTripStatusDto {
   @IsDate()
-  startedAt?: Date;
+  startedAt?: Date
 
   @IsDate()
-  endedAt?: Date;
+  endedAt?: Date
 
   @IsDate()
-  cancelledAt?: Date;
+  cancelledAt?: Date
 }
 

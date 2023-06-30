@@ -1,18 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { DriversService } from './drivers.service';
+// import { Test, TestingModule } from '@nestjs/testing'
+import { DriversService } from './drivers.service'
+import { PgDbService } from '../../pgdb/pgdb.service'
 
 describe('DriversService', () => {
-  let service: DriversService;
+  let service: DriversService
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [DriversService],
-    }).compile();
-
-    service = module.get<DriversService>(DriversService);
-  });
+    service = new DriversService(PgDbService as any)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    expect(service).toBeDefined()
+  })
+})

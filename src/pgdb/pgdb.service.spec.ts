@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PgDBService } from './pgdb.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { PgDbService } from './pgdb.service'
 
-describe('PgDBService', () => {
-  let service: PgDBService;
+describe('PgDbService', () => {
+  let service: PgDbService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PgDBService],
-    }).compile();
+      providers: [PgDbService],
+    }).compile()
 
-    service = module.get<PgDBService>(PgDBService);
-  });
+    service = module.get<PgDbService>(PgDbService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    expect(service).toBeDefined()
+  })
+})
