@@ -28,7 +28,7 @@ export class DriversController {
 
   @Post()
   async create(@Body() input: CreateDriverDto) {
-    const driver = await this.driverService.create(input)
+    const driver = await this.driverService.create({ ...input, status: DriverStatus.PENDING })
     return { driver }
   }
 }

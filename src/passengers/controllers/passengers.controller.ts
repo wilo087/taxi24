@@ -1,8 +1,8 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { DriversService } from '@drivers/services/drivers.service';
-import { PassengersService } from '../services/passengers.service';
-import { CoordinatesQuery } from '@drivers/dtos/driver.dto';
-import { CoordinatesValidationPipe } from '@drivers/pipes/coordinates.pipe';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
+import { DriversService } from '@drivers/services/drivers.service'
+import { CoordinatesQuery } from '@drivers/dtos/driver.dto'
+import { CoordinatesValidationPipe } from '@drivers/pipes/coordinates.pipe'
+import { PassengersService } from '../services/passengers.service'
 
 @Controller('passengers')
 export class PassengersController {
@@ -12,15 +12,14 @@ export class PassengersController {
   ) { }
 
   @Get()
-  findAll() {
-    const passengers = this.passengersService.findAll()
+  async findAll() {
+    const passengers = await this.passengersService.findAll()
     return { passengers }
   }
 
-
   @Get('trip')
   async requestTrip(@Query(new CoordinatesValidationPipe()) coordinates: CoordinatesQuery) {
-    const drivers = this.driversService.findNearby(coordinates);
+    const drivers = await this.driversService.findNearby(coordinates)
     return { drivers }
   }
 

@@ -7,23 +7,16 @@ export class PassengersService {
   constructor(private db: PgDBService) { }
 
   async findAll(): Promise<Passenger[]> {
-    return this.db.passenger.findMany();
+    const passengers = this.db.passenger.findMany()
+
+    return passengers
   }
 
   async findOne(id: number): Promise<Passenger | null> {
-    return this.db.passenger.findUnique({
+    const passenger = await this.db.passenger.findUnique({
       where: { id }
     })
-  }
 
-  // TODO: We need to calculate the distance between the passenger and the driver
-  async requestTrip(lat: number, lng: number): Promise<Passenger[] | unknown> {
-    const drivers = await this.db.driver.findMany({
-      where: {
-        AND: [{ currentLat: lat }, { currentLon: lng }]
-      }
-    })
-
-    return drivers
+    return passenger
   }
 }

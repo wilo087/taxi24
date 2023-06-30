@@ -9,37 +9,26 @@ export class DriversService {
   constructor(private db: PgDBService) { }
 
   async findAll(status: DriverStatus | undefined = undefined): Promise<Driver[]> {
-    return this.db.driver.findMany({
+    const drivers = await this.db.driver.findMany({
       where: { status },
       include: {
         company: true,
         vehicle: true
       }
-    });
+    })
+
+    return drivers
   }
 
   async findById(id: number): Promise<Driver | null> {
-    return this.db.driver.findUnique({
+    const driver = await this.db.driver.findUnique({
       where: { id },
       include: {
-        company: true,
-        vehicle: {
-          include: { brand: true }
-        }
+        company: true, vehicle: { include: { brand: true } }
       }
-    });
-  }
+    })
 
-  async findByStatus(status: DriverStatus): Promise<Driver | null> {
-    return this.db.driver.findFirst({
-      where: { status },
-      include: {
-        company: true,
-        vehicle: {
-          include: { brand: true }
-        }
-      }
-    });
+    return driver
   }
 
   async findNearby(coordinates: CoordinatesQuery, limit: number | undefined = undefined): Promise<Driver[]> {
@@ -86,6 +75,7 @@ export class DriversService {
   }
 
   async create(driver: CreateDriverDto): Promise<Driver> {
+    // TODO: incompleted!
     return this.db.driver.create({
       data: {
         firstName: driver.firstName,

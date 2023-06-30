@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { DriversService } from './services/drivers.service'
 import { DriversController } from './controllers/drivers.controller'
-import { PgDbModule } from 'src/pgdb/pgdb.module'
+import { PgDbModule } from '@database/pgdb.module'
 
 @Module({
   providers: [DriversService],

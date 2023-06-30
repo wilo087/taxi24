@@ -52,10 +52,10 @@ model Driver {
   id           Int          @id @default(autoincrement())
   firstName    String       @map("first_name")
   lastName     String       @map("last_name")
-  email        String
+  email        String       @unique
   phone        String
   companyId    Int          @map("company_id")
-  document     String
+  document     String       @unique
   documentType String       @map("document_type")
   picture      String?
   currentLat   Float?       @map("current_lat")
